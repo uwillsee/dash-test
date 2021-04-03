@@ -3,6 +3,8 @@ import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output
 from dash.exceptions import PreventUpdate
+import requests
+r = requests.get(url, timeout=3)
 
 
 import numpy as np
@@ -12,8 +14,7 @@ from re import search
 import plotly.graph_objects as go
 import plotly.express as px
 
-import warnings
-warnings.filterwarnings('ignore')
+
 
 data = pd.read_csv('data.csv')
 
