@@ -278,6 +278,7 @@ def donut_chart(countries = None):
         temp = data.copy()
     data_drawings = temp[(data.Classification == 'Drawing') | (
         data.Classification == 'Painting') | (data.Classification == 'Work on Paper')]
+    data_drawings=data_drawings.copy()
     data_drawings['Technique'] = data_drawings['Medium'].apply(
         filter_technique)
     data_drawings = data_drawings[data_drawings['Medium']
