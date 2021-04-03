@@ -203,32 +203,6 @@ def line_chart_nationalities():
 
     return fig
 
-def map_with_animation():
-    # 2 options (comment the one you don't want)
-    ### With growth
-    temp = data.groupby(['DateAcquired', 'Country'])['Title'].count().unstack().replace(np.nan, 0).cumsum()
-    temp = pd.DataFrame(temp.stack()).reset_index().rename({0: 'Count'}, axis=1)
-
-    # logarithm
-    temp['Countlog'] = np.log(temp['Count'])
-
-    fig = px.choropleth(temp, locations='Country', locationmode='country names',
-                        color='Countlog',
-                        color_continuous_scale=['#e8e6ff', '#dcd9ff', '#b2b0ff', '#8889e0', '#6063b6', '#4a4bc7', '#33357f'],
-                        animation_frame='DateAcquired',
-                        range_color=(0, temp['Countlog'].max()),
-                        hover_name='Country',
-                        hover_data={'Country':False,'Count':True,'Countlog':False,'DateAcquired':False},
-                        labels={'DateAcquired': 'Year', 'Countlog': 'Acquired<br>Artworks (log)','Count': 'Acquired Artworks'}
-                        #projection="natural earth"
-                        )
-    fig.update_layout(
-        title=dict(text='Artworks\' Nationality Evolution',
-                                           x=0.1,y=0.95,
-                   font=dict(color='black')
-            )
-    )
-    return fig
 
 
 def statistics(countries = None):
@@ -397,7 +371,7 @@ app.layout = dcc.Loading(
                     html.Div(
                         children=[
                             dcc.Loading([
-                                    dcc.Graph(figure=map_with_animation(),
+                                    dcc.Graph(figure={},
                                               id='main-choropleth')],
                                     type='default', color='black', id="map-loading"
                             )
